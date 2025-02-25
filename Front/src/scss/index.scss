@@ -1,0 +1,337 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+// Styles
+html {
+  font-family: v.$font-stack;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: v.$primary-color;
+}
+
+body, #root {
+  margin: 0;
+  @include m.flex-column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+}
+
+.bg-dark {
+  background-color: v.$dark-bg;
+}
+
+.sr-only {
+  @include m.sr-only;
+}
+
+.main-nav {
+  @include m.flex-space-between;
+  padding: 5px 20px;
+
+  a {
+    font-weight: bold;
+    color: v.$primary-color;
+
+    &.router-link-exact-active {
+      color: v.$secondary-color;
+    }
+  }
+}
+
+.main-nav-item {
+  text-decoration: none;
+  margin-right: 0.5rem;
+  @include m.flex-center;
+  gap: 0.2rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.main-nav-items {
+    text-decoration: none;
+    margin-right: 0.5rem;
+    @include m.flex-center;
+    gap: 0.2rem;
+  
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+.main-nav-logo {
+  @include m.flex-center;
+
+  &-image {
+    max-width: 100%;
+    width: 200px;
+  }
+}
+
+.hero {
+  background-image: url('../assets/img/bank-tree.jpeg');
+  background-position: 0 -50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 300px;
+  position: relative;
+
+  &-content {
+    position: relative;
+    top: 2rem;
+    width: 200px;
+    background: v.$white;
+    padding: 2rem;
+    text-align: left;
+    margin: 0 auto;
+
+    .subtitle {
+      font-weight: bold;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .text {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (min-width: 920px) {
+    height: 400px;
+    background-position: 0% 33%;
+
+    &-content {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      width: 300px;
+      margin: 2rem;
+
+      .subtitle {
+        font-size: 1.5rem;
+      }
+
+      .text {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.features {
+  @include m.flex-column;
+
+  @media (min-width: 920px) {
+    flex-direction: row;
+  }
+}
+
+.feature-icon {
+  width: 100px;
+  border: 10px solid v.$secondary-color;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.feature-item {
+  flex: 1;
+  padding: 2.5rem;
+
+  &-title {
+    color: v.$black;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.sign-in-button {
+  @include m.button-style(v.$secondary-color, v.$secondary-color, v.$white);
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.sign-in-content {
+  box-sizing: border-box;
+  background-color: v.$white;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.input-remember {
+  // @include m.flex-center;
+  display: flex;
+
+  label {
+    margin-left: 0.25rem;
+  }
+}
+
+.input-wrapper {
+  @include m.flex-column;
+  text-align: left;
+  margin-bottom: 1rem;
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    padding: 5px;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+  }
+}
+
+.footer {
+  @include m.flex-center;
+  border-top: 2px solid v.$gray;
+  padding: 2rem 0 1.5rem;
+
+  &-text {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.account {
+  @include m.flex-space-between;
+  border: 1px solid v.$black;
+  background-color: v.$white;
+  width: 80%;
+  margin: 0 auto;
+  @include m.flex-column;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  text-align: left;
+  margin-bottom: 2rem;
+
+  &-amount {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  &-amount-description {
+    margin: 0;
+  }
+
+  &-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+
+  &-content-wrapper {
+    width: 100%;
+    flex: 1;
+  }
+
+  @media (min-width: 720px) {
+    flex-direction: row;
+
+    .account-content-wrapper.cta {
+      flex: 0;
+    }
+
+    .transaction-button {
+      width: 200px;
+    }
+  }
+}
+
+.transaction-button {
+  @include m.button-style(v.$secondary-color, v.$secondary-color, v.$white);
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.form-inputs {
+  @include m.flex-center;
+  gap: 0.5rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+.form-buttons {
+  @include m.flex-center;
+  gap: 1rem;
+}
+
+.edit-form {
+  width: 30%;
+  margin: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 50%;
+  }
+}
+
+.edit-button, .save-button {
+  @include m.button-style(v.$secondary-color, v.$secondary-color, v.$white);
+}
+
+.cancel-button {
+  @include m.button-style(v.$error-color, v.$error-color, v.$white);
+}
+
+.error-message {
+  font-size: 16px;
+  color: v.$error-color;
+}
+
+.success-message {
+  font-size: 16px;
+  color: v.$secondary-color;
+}
+
+.header {
+  color: v.$white;
+  margin-bottom: 2rem;
+}
+
+.notfound {
+  @include m.flex-column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+
+  h1 {
+    font-size: 70px;
+    color: v.$secondary-color;
+  }
+
+  h2 {
+    margin: 20px 0;
+  }
+
+  a {
+    margin-top: 20px;
+    color: v.$secondary-color;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
