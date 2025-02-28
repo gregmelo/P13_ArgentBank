@@ -14,9 +14,9 @@ export default function Header() {
 
   const handleLogout = () => {
     console.log('Déconnexion déclenchée'); // Debug
+    navigate('/'); // Redirige vers la page d'accueil après la déconnexion
     dispatch(userLogout()); // Déconnecte l'utilisateur
     console.log('Redirection vers /'); // Debug
-    navigate('/'); // Redirige vers la page d'accueil après la déconnexion
   };
 
   return (

@@ -46,6 +46,7 @@ export const authentificationSlice = createSlice({
          * @param {Object} state - L'état actuel du slice.
          */
         userLogout: (state) => {
+            console.log("state", state); // Debug
             console.log('Déconnexion en cours...'); // Debug
             state.token = null;
             state.isLoggedIn = false;
