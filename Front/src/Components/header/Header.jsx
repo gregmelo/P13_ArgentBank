@@ -7,17 +7,20 @@ import { userLogout } from '../../redux/slices/authentificationSlice';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
-  const { token } = useSelector((state) => state.authentification) ?? null;
-  console.log('Header - token:', token); // Debug
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.authentification);
   const { user } = useSelector((state) => state.userProfile);
 
   const handleLogout = () => {
-    console.log('Déconnexion déclenchée'); // Debug
-    navigate('/'); // Redirige vers la page d'accueil après la déconnexion
+    console.log('Déconnexion déclenchée'); // Debug 
     dispatch(userLogout()); // Déconnecte l'utilisateur
-    console.log('Redirection vers /'); // Debug
+  
+    setTimeout(() => {
+      console.log('Redirection vers /'); // Debug
+      navigate('/'); // Redirige vers la page d'accueil après la mise à jour Redux
+    }, 0);
   };
+  
 
   return (
     <nav className="main-nav">
