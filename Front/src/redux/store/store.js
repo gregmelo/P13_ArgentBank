@@ -35,12 +35,13 @@ if (storedAuthentificationToken) {
             return response.json();
         })
         .then(userData => {
+            console.log('Données utilisateur récupérées depuis l’API :', userData);
             // Met à jour l'état d'authentification avec le token.
-            appStore.dispatch(userLogin({ storedAuthentificationToken }));
+            appStore.dispatch(userLogin({ token: storedAuthentificationToken }));
             // Met à jour l'état du profil utilisateur avec les informations récupérées.
             appStore.dispatch({
                 type: `userProfile/setProfileSuccess`,
-                payload: userData,
+                payload: userData.body,
             });
         })
         .catch(error => {
