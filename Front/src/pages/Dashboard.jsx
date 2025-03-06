@@ -59,13 +59,13 @@ export default function Dashboard() {
 
     // Validation des champs
     if (!firstName.trim() && !lastName.trim()) {
-        setError('Les champs "Prénom" et "Nom" ne peuvent pas être vides.');
+        setError('The “First name” and “Last name” fields cannot be empty.');
         return;
       } else if (!firstName.trim()) {
-        setError('Le champ "Prénom" ne peut pas être vide.');
+        setError('The “First Name” field cannot be empty.');
         return;
       } else if (!lastName.trim()) {
-        setError('Le champ "Nom" ne peut pas être vide.');
+        setError('The “Last Name” field cannot be empty.');
         return;
       }
 
