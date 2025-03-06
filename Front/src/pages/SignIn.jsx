@@ -14,6 +14,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -34,6 +35,16 @@ export default function SignIn() {
       }
 
       localStorage.setItem("authentificationToken", token); // 🔥 Stocker le token
+
+      // Si "Remember Me" est coché, stocke une date d'expiration (7 jours)
+      if (rememberMe) {
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 7); // Ajoute 7 jours
+        localStorage.setItem("tokenExpiration", expirationDate.toISOString());
+      } else {
+        // Si non coché, supprime toute expiration existante
+        localStorage.removeItem("tokenExpiration");
+      }
 
       // Dispatch de l'action pour indiquer que l'utilisateur est connecté
       dispatch(userLogin({ token }));
@@ -77,7 +88,7 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input type="checkbox" id="remember-me" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}/>
             <label htmlFor="remember-me">Remember me</label>
           </div>
           {error && <p className="error-message">{error}</p>}
@@ -87,6 +98,9 @@ export default function SignIn() {
             text={loading ? 'Connexion en cours...' : 'Sign In'}
           />
         </form>
+        <p>
+        Pas de compte ? <a href="/signup">Inscrivez-vous</a>
+      </p>
       </section>
     </main>
   );

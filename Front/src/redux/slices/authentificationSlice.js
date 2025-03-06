@@ -47,6 +47,7 @@ export const authentificationSlice = createSlice({
         state.isLoggedIn = false;
         state.user = null;
         localStorage.removeItem('authentificationToken');
+        localStorage.removeItem('tokenExpiration');
         console.log('Déconnexion réussie. Token dans localStorage :', localStorage.getItem('authentificationToken'));
       },
     },

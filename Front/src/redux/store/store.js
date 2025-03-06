@@ -15,41 +15,73 @@ const appStore = configureStore({
     },
 });
 
-// Récupérer le token d'authentification depuis localStorage s'il existe.
+// Récupérer le token d'authentification et la date d'expiration du token depuis localStorage s'il existe.
 const storedAuthentificationToken = localStorage.getItem('authentificationToken');
+const tokenExpiration = localStorage.getItem('tokenExpiration');
 
-// Si un token est présent, récupérer les informations de l'utilisateur depuis l'API.
+// Vérifie si le token est valide (présent et non expiré)
 if (storedAuthentificationToken) {
-    fetch('http://localhost:3001/api/v1/user/profile', {
-        method: 'POST',
-        headers: {
+    if (tokenExpiration) {
+      const expirationDate = new Date(tokenExpiration);
+      const now = new Date();
+      if (now > expirationDate) {
+        // Token expiré : déconnecte l'utilisateur
+        console.log('Token expiré, déconnexion automatique');
+        appStore.dispatch(userLogout());
+      } else {
+        // Token valide : récupère les données utilisateur
+        fetch('http://localhost:3001/api/v1/user/profile', {
+          method: 'POST',
+          headers: {
             'Authorization': `Bearer ${storedAuthentificationToken}`,
             'Content-Type': 'application/json',
-        },
-    })
-        .then(response => {
-            // Vérifie si la réponse est correcte.
+          },
+        })
+          .then(response => {
             if (!response.ok) {
-                throw new Error("Échec de récupération des données utilisateur");
+              throw new Error("Échec de récupération des données utilisateur");
             }
             return response.json();
+          })
+          .then(userData => {
+            appStore.dispatch(userLogin({ token: storedAuthentificationToken }));
+            appStore.dispatch({
+              type: `userProfile/setProfileSuccess`,
+              payload: userData.body,
+            });
+          })
+          .catch(error => {
+            console.error("Échec de récupération des données détaillées de l'utilisateur:", error);
+            appStore.dispatch(userLogout());
+          });
+      }
+    } else {
+      // Pas d'expiration : token valide uniquement pour la session, on le garde
+      fetch('http://localhost:3001/api/v1/user/profile', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${storedAuthentificationToken}`,
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Échec de récupération des données utilisateur");
+          }
+          return response.json();
         })
         .then(userData => {
-            console.log('Données utilisateur récupérées depuis l’API :', userData);
-            // Met à jour l'état d'authentification avec le token.
-            appStore.dispatch(userLogin({ token: storedAuthentificationToken }));
-            // Met à jour l'état du profil utilisateur avec les informations récupérées.
-            appStore.dispatch({
-                type: `userProfile/setProfileSuccess`,
-                payload: userData.body,
-            });
+          appStore.dispatch(userLogin({ token: storedAuthentificationToken }));
+          appStore.dispatch({
+            type: `userProfile/setProfileSuccess`,
+            payload: userData.body,
+          });
         })
         .catch(error => {
-            // Si une erreur survient, déconnecte l'utilisateur et supprime le token du localStorage.
-            console.error("Échec de récupération des données détaillées de l'utilisateur:", error);
-            // Supprime le token du localStorage et réinitialise l'état d'authentification.
-            appStore.dispatch(userLogout());
+          console.error("Échec de récupération des données détaillées de l'utilisateur:", error);
+          appStore.dispatch(userLogout());
         });
-}
+    }
+  }
 
 export default appStore;

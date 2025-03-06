@@ -4,6 +4,7 @@ import Layout from './pages/Layout';
 import SignIn from './pages/SignIn';
 import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
+import SignUp from './pages/SignUp';
 import SignOut from './Components/signOut/SignOut';
 import ProtectedRoute from './Components/protectedRoute/ProtectedRoute';
 import { useEffect } from 'react';
@@ -47,6 +48,7 @@ export default function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/signOut" element={<SignOut />} />
           <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Dashboard />} />
