@@ -114,11 +114,11 @@ export default function SignUp() {
           <Button
             type="submit"
             className="sign-in-button"
-            text={loading ? 'Inscription en cours...' : 'Sign Up'}
+            text={loading ? 'Registration in progress...' : 'Sign Up'}
           />
         </form>
         <p>
-          Déjà un compte ? <a href="/login">Connectez-vous</a>
+        Already have an account? <a href="/login">Log in</a>
         </p>
       </section>
     </main>

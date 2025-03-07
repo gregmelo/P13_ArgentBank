@@ -95,11 +95,11 @@ export default function SignIn() {
           <Button
             type="submit"
             className="sign-in-button"
-            text={loading ? 'Connexion en cours...' : 'Sign In'}
+            text={loading ? 'Connection in progress...' : 'Sign In'}
           />
         </form>
         <p>
-        Pas de compte ? <a href="/signup">Inscrivez-vous</a>
+        No account? <a href="/signup">Register</a>
       </p>
       </section>
     </main>
