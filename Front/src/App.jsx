@@ -9,7 +9,7 @@ import Layout from './pages/Layout';
 import SignIn from './pages/SignIn';
 import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
-import SignUp from './pages/SignUp';
+// import SignUp from './pages/SignUp';
 import SignOut from './Components/signOut/SignOut';
 import ProtectedRoute from './Components/protectedRoute/ProtectedRoute';
 import { useEffect } from 'react';
@@ -56,7 +56,7 @@ export default function App() {
         <Route path='/' element={<Layout />}> {/* Layout principal */}
           <Route index element={<HomePage />} /> {/* Page d'accueil */}
           <Route path="/login" element={<SignIn />} /> {/* Page de connexion */}
-          <Route path="/signup" element={<SignUp />} /> {/* Page d'inscription */}
+          {/* <Route path="/signup" element={<SignUp />} /> Page d'inscription */}
           <Route path="/signOut" element={<SignOut />} /> {/* Déconnexion */}
           
           {/* Routes protégées accessibles uniquement aux utilisateurs authentifiés */}

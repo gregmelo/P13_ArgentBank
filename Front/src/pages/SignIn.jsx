@@ -130,9 +130,9 @@ export default function SignIn() {
         </form>
 
         {/* Lien vers la page d'inscription */}
-        <p>
+        {/* <p>
           No account? <a href="/signup">Register</a>
-        </p>
+        </p> */}
       </section>
     </main>
   );
