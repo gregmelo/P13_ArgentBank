@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-console.log("Token dans localStorage au chargement :", localStorage.getItem("authentificationToken"));
-
 /**
  * État initial du slice d'authentification.
  * Récupère le token d'authentification depuis localStorage s'il est disponible, sinon l'initialise à null.
@@ -17,7 +15,6 @@ const initialState = {
     // userData: null,
     authError: null,
 };
-console.log("Token initial dans localStorage :", localStorage.getItem('authentificationToken'));
 
 /**
  * Création du slice Redux pour gérer l'authentification de l'utilisateur.
@@ -31,7 +28,6 @@ export const authentificationSlice = createSlice({
     reducers: {
         userLogin: (state, { payload }) => {
             const { token, userData } = payload;
-            console.log('userLogin appelé - Nouveau token :', token);
             if (!token) {
               console.error('userLogin appelé avec un token invalide !', payload);
               return; // Ne rien faire si le token est manquant ou invalide
@@ -42,13 +38,11 @@ export const authentificationSlice = createSlice({
             localStorage.setItem('authentificationToken', token);
           },
       userLogout: (state) => {
-        console.log('!!! userLogout déclenché !!!');
         state.token = null;
         state.isLoggedIn = false;
         state.user = null;
         localStorage.removeItem('authentificationToken');
         localStorage.removeItem('tokenExpiration');
-        console.log('Déconnexion réussie. Token dans localStorage :', localStorage.getItem('authentificationToken'));
       },
     },
   });

@@ -1,8 +1,9 @@
-//features img
+// Importation des icônes pour les fonctionnalités de la banque
 import ChatIcon from '../assets/img/icon-chat.png';
 import MoneyIcon from '../assets/img/icon-money.png';
 import SecurityIcon from '../assets/img/icon-security.png';
 
+// Liste des fonctionnalités mises en avant sur le site
 const features = [
     {
         icon: ChatIcon,
@@ -17,10 +18,11 @@ const features = [
     {
         icon: SecurityIcon,
         title: "Security you can trust",
-        text: "We use top of the line encryption to make sure your data and money is always safe."
+        text: "We use top-of-the-line encryption to make sure your data and money is always safe."
     },
-]
+];
 
+// Liste des comptes bancaires avec leurs soldes et descriptions
 const account = [
     {
         title: "Argent Bank Checking (x8349)",
@@ -37,6 +39,7 @@ const account = [
         amount: "184.30",
         description: "Current Balance"
     }
-]
+];
 
-export default {features, account};
+// Exportation des données pour utilisation dans d'autres composants
+export default { features, account };

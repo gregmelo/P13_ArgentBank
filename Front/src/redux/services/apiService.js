@@ -1,3 +1,4 @@
+// const API_URL = process.env.REACT_APP_API_URL + "/api/v1";
 const API_URL = "http://127.0.0.1:3001/api/v1";
 
 /**
@@ -19,7 +20,6 @@ export const loginUser = async (email, password) => {
     }
 
     const data = await response.json();
-    console.log("Données de connexion:", data);
 
     return data;
 };
@@ -56,8 +56,6 @@ export const getUserData = async (token) => {
  * @returns {Promise<Object>} - Retourne les données mises à jour.
  */
 export const updateUserData = async (token, userData) => {
-  console.log("Données utilisateur à mettre à jour:", userData);
-  console.log("Token utilisateur:", token);
 
   if(!token) {
     throw new Error("Token manquant.");
@@ -77,7 +75,6 @@ export const updateUserData = async (token, userData) => {
     }
 
     const data = await response.json();
-    console.log("Données utilisateur mises à jour:", data);
     return data;
 };
 
@@ -104,6 +101,5 @@ export const signUpUser = async (email, password, firstName, lastName) => {
   }
 
   const data = await response.json();
-  console.log("Réponse signUpUser:", data);
   return data;
 };

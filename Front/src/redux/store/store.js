@@ -26,7 +26,6 @@ if (storedAuthentificationToken) {
       const now = new Date();
       if (now > expirationDate) {
         // Token expiré : déconnecte l'utilisateur
-        console.log('Token expiré, déconnexion automatique');
         appStore.dispatch(userLogout());
       } else {
         // Token valide : récupère les données utilisateur

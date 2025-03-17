@@ -1,22 +1,26 @@
 import PropTypes from "prop-types";
 
-export default function Input({id, label, type, placeholder, value, onChange, className, autoComplete }) {
+// Composant Input - Champ de saisie réutilisable
+export default function Input({ id, label, type, placeholder, value, onChange, className, autoComplete }) {
     return (
         <div className={className}>
-        <label htmlFor={id}>{label}</label>
-        <input
-            id={id}
-            type={type}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            className={className}
-            autoComplete={autoComplete}
-        />
+            {/* Label associé à l'input */}
+            <label htmlFor={id}>{label}</label>
+            {/* Champ de saisie */}
+            <input
+                id={id}
+                type={type}
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                className={className}
+                autoComplete={autoComplete}
+            />
         </div>
-    )
+    );
 }
 
+// Définition des types attendus pour les props
 Input.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,

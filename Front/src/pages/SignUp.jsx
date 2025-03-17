@@ -4,14 +4,20 @@ import Button from '../Components/button/Button';
 import Input from '../Components/input/Input';
 import { useDispatch } from 'react-redux';
 import { startLoadingProfile, setProfileSuccess, setProfileError } from '../redux/slices/userSlice';
-import { signUpUser, getUserData, loginUser } from '../redux/services/apiService'; // Nouvelle fonction à créer
+import { signUpUser, getUserData, loginUser } from '../redux/services/apiService';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { userLogin } from '../redux/slices/authentificationSlice';
 
+/**
+ * Composant d'inscription permettant aux utilisateurs de créer un compte.
+ * @returns {JSX.Element} Composant SignUp
+ */
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // États pour stocker les valeurs des champs du formulaire
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -19,12 +25,16 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  /**
+   * Gère la soumission du formulaire d'inscription.
+   * @param {Event} e - L'événement de soumission du formulaire
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    // Validation simple des champs
+    // Validation des champs
     if (!email.trim() || !password.trim() || !firstName.trim() || !lastName.trim()) {
       setError('Tous les champs doivent être remplis.');
       setLoading(false);
@@ -32,32 +42,30 @@ export default function SignUp() {
     }
 
     try {
-        // Inscription de l'utilisateur
-        const signUpResponse = await signUpUser(email, password, firstName, lastName);
-        console.log("Réponse inscription:", signUpResponse);
+      // Inscription de l'utilisateur
+      const signUpResponse = await signUpUser(email, password, firstName, lastName);
+      console.log("Réponse inscription:", signUpResponse);
 
-        // Connexion automatique avec les mêmes identifiants
-        const loginResponse = await loginUser(email, password);
-        console.log("Réponse connexion après inscription:", loginResponse);
+      // Connexion automatique après l'inscription
+      const loginResponse = await loginUser(email, password);
 
-        const { token } = loginResponse.body;
-
+      const { token } = loginResponse.body;
       if (!token) {
         throw new Error('Token manquant dans la réponse d’inscription');
       }
 
-      // Stocke le token dans localStorage
+      // Stockage du token dans le localStorage
       localStorage.setItem("authentificationToken", token);
 
       // Dispatch de l'action pour connecter l'utilisateur
       dispatch(userLogin({ token }));
 
-      // Récupère les données utilisateur
+      // Récupération des données utilisateur
       dispatch(startLoadingProfile());
       const user = await getUserData(token);
-      console.log("Données utilisateur:", user);
       dispatch(setProfileSuccess(user.body));
 
+      // Redirection vers le profil utilisateur
       navigate('/profile');
     } catch (error) {
       console.error("Erreur d’inscription:", error);
@@ -118,7 +126,7 @@ export default function SignUp() {
           />
         </form>
         <p>
-        Already have an account? <a href="/login">Log in</a>
+          Already have an account? <a href="/login">Log in</a>
         </p>
       </section>
     </main>
