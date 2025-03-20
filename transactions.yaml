@@ -49,7 +49,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /accounts/{accountId}/transactions/{transactionId}/info:
+  /accounts/{accountId}/transactions/{transactionId}:
     post:
       summary: Add information to a transaction
       description: Adds user-editable information (description, category, notes) to an existing transaction identified by its ID within an account.
@@ -168,7 +168,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /accounts/{accountId}/transactions/{transactionId}:
     get:
       summary: Get details of a specific transaction
       description: Retrieves detailed information about a specific transaction identified by its ID within an account, including user-added metadata.

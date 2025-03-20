@@ -86,20 +86,20 @@ export const updateUserData = async (token, userData) => {
  * @param {string} lastName - Nom de l'utilisateur.
  * @returns {Promise<Object>} - Réponse de l'API avec le token.
  */
-export const signUpUser = async (email, password, firstName, lastName) => {
-  const response = await fetch(`${API_URL}/user/signup`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password, firstName, lastName }),
-  });
+// export const signUpUser = async (email, password, firstName, lastName) => {
+//   const response = await fetch(`${API_URL}/user/signup`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({ email, password, firstName, lastName }),
+//   });
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message || "Erreur lors de l’inscription");
-  }
+//   if (!response.ok) {
+//     const errorData = await response.json();
+//     throw new Error(errorData.message || "Erreur lors de l’inscription");
+//   }
 
-  const data = await response.json();
-  return data;
-};
+//   const data = await response.json();
+//   return data;
+// };
